@@ -6,7 +6,7 @@ by/stolen from Ryan Bates.
 
 == Installation
 
-  git clone git://github.com/ryanb/dotfiles ~/.dotfiles
+  git clone git://github.com/simplogical/dotfiles ~/.dotfiles
   cd ~/.dotfiles
   rake install
 
