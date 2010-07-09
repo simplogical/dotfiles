@@ -10,7 +10,7 @@ task :install do
     next if %w[Rakefile README.rdoc LICENSE].include? file
  
     if File.exist?(File.join(ENV['HOME'], dest(file)))
-      if File.identical?(file, File.join(ENV['HOME'], dest(file)}))
+      if File.identical?(file, File.join(ENV['HOME'], dest(file)))
         puts "identical ~/#{dest(file)}"
       elsif replace_all
         replace_file(file)
@@ -36,7 +36,7 @@ end
 
 def replace_file(file)
   if WINDOZE
-    if File.directory?(File.join(ENV['HOME'], dest(file))
+    if File.directory?(File.join(ENV['HOME'], dest(file)))
       system %Q{rd /s/q "%HOMEPATH%/#{dest(file)}"}
     else
       system %Q{del /q "%HOMEPATH%/#{dest(file)}"}
