@@ -57,9 +57,9 @@ def link_file(file)
     puts "linking ~/#{dest(file)}"
     if WINDOZE
       if File.directory?(File.join(ENV['HOME'], dest(file))
-        system %Q{mklink /d "%HOMEPATH%/#{dest(file)}" "%CD%/#{file}"}
+        system %Q{cmd.exe /c "mklink /d \"%HOMEPATH%/#{dest(file)}\" \"%CD%/#{file}\""}
       else
-        system %Q{mklink "%HOMEPATH%/#{dest(file)}" "%CD%/#{file}"}
+        system %Q{cmd.exe /c "mklink \"%HOMEPATH%/#{dest(file)}\" \"%CD%/#{file}\""}
       end
     else
       system %Q{ln -s "$PWD/#{file}" "$HOME/#{dest(file)}"}
