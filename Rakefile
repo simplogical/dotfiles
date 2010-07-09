@@ -36,11 +36,7 @@ end
 
 def replace_file(file)
   if WINDOZE
-    if File.directory?(File.join(ENV['HOME'], dest(file)))
-      system %Q{rd /s/q "%HOMEPATH%/#{dest(file)}"}
-    else
-      system %Q{del /q "%HOMEPATH%/#{dest(file)}"}
-    end
+    system %Q{del /q "%HOMEPATH%/#{dest(file)}"}
   else
     system %Q{rm -rf "$HOME/#{dest(file)}"}
   end
