@@ -16,9 +16,11 @@ filetype plugin on
 filetype indent on
 
 :colorscheme railscasts
-:cd ~
+
+" this is an attempt to highlight lines over 80 charaters - it doesn't work
 highlight OverLength guibg=#592929
 match OverLength /\%81v.\+/
+
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 nnoremap ' `
@@ -43,6 +45,13 @@ set hlsearch
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 set listchars=tab:>-,trail:*,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
+
+" NERDTree plugin
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-map <silent> <leader>t :FuzzyFinderTextMate<CR>
+
+" FuzzyFinder plugin
+nnoremap <silent> <leader>f :FufFile<CR>
+" a leading space allows a recursive search
+let g:fuf_abbrevMap={"^ ":["**/",],}
+
 set shortmess=atI
