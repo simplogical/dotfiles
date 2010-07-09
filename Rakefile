@@ -1,19 +1,21 @@
 require 'rake'
 require 'erb'
+require 'rbconfig'
+WINDOZE = Config::CONFIG['host_os'] =~ /mswin|mingw/
 
-desc "install the dit files into the user's home directory"
+desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
-
-    if File.exist?(File.join(ENV['HOME'], nice(file)))
-      if File.identical? file, File.join(ENV['HOME'], nice(file))
-        puts "identical ~/#{nice(file)}"
+ 
+    if File.exist?(File.join(ENV['HOME'], dest(file)))
+      if File.identical?(file, File.join(ENV['HOME'], dest(file)}))
+        puts "identical ~/#{dest(file)}"
       elsif replace_all
         replace_file(file)
       else
-        print "overwrite ~/#{nice(file)}? [ynaq] "
+        print "overwrite ~/#{dest(file)}? [ynaq] "
         case $stdin.gets.chomp
         when 'a'
           replace_all = true
@@ -23,7 +25,7 @@ task :install do
         when 'q'
           exit
         else
-          puts "skipping ~/#{nice(file)}"
+          puts "skipping ~/#{dest(file)}"
         end
       end
     else
@@ -33,22 +35,43 @@ task :install do
 end
 
 def replace_file(file)
-  system %Q{rm -rf "$HOME/#{nice(file)}"}
+  if WINDOZE
+    if File.directory?(File.join(ENV['HOME'], dest(file))
+      system %Q{rd /s/q "%HOMEPATH%/#{dest(file)}"}
+    else
+      system %Q{del /q "%HOMEPATH%/#{dest(file)}"}
+    end
+  else
+    system %Q{rm -rf "$HOME/#{dest(file)}"}
+  end
   link_file(file)
 end
 
 def link_file(file)
   if file =~ /.erb$/
-    puts "generating ~/#{nice(file)}"
-    File.open(File.join(ENV['HOME'], nice(file)), 'w') do |new_file|
+    puts "generating ~/#{dest(file)}"
+    File.open(File.join(ENV['HOME'], "#{dest(file)}"), 'w') do |new_file|
       new_file.write ERB.new(File.read(file)).result(binding)
     end
   else
-    puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    puts "linking ~/#{dest(file)}"
+    if WINDOZE
+      if File.directory?(File.join(ENV['HOME'], dest(file))
+        system %Q{mklink /d "%HOMEPATH%/#{dest(file)}" "%CD%/#{file}"}
+      else
+        system %Q{mklink "%HOMEPATH%/#{dest(file)}" "%CD%/#{file}"}
+      end
+    else
+      system %Q{ln -s "$PWD/#{file}" "$HOME/#{dest(file)}"}
+    end
   end
 end
 
-def nice(file)
-  ".#{file.sub('.erb', '')}"
+def dest(file)
+  if WINDOZE && file == "vim"
+    "vimfiles"
+  else
+    ".#{file.sub('.erb','')}"
+  end
 end
+

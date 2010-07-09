@@ -13,5 +13,7 @@ by/stolen from Ryan Bates.
 
 == Environment
 
-I run Mac OS X and Windows 7, and these files and tasks are designed to know
-where they are being run, and to behave approppriately.
+I run both Mac OS X and Windows 7, so these files and tasks are designed to know
+where they are being run, and to behave appropriately. Creating symbolic links
+in Windows requires SeCreateSymbolicLinkPrivilege - you can run secpol as an
+administrator and give your account this privelege.
