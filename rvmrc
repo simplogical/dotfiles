@@ -1,0 +1,2 @@
+rvm_project_rvmrc_default=1 # Use default gemset when leaving a .rvmrc project dir
+
