@@ -15,7 +15,7 @@ filetype on
 filetype plugin on
 filetype indent on
 
-:colorscheme railscasts
+:colorscheme ir_black
 
 " this is an attempt to highlight lines over 80 charaters - it doesn't work
 highlight OverLength guibg=#592929
@@ -37,8 +37,8 @@ set wildmode=list:longest,full
 set ignorecase
 set smartcase
 set scrolloff=3
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp
+set backupdir=.,~/.vim-tmp,~/.tmp,~/tmp
+set directory=.,~/.vim-tmp,~/.tmp,~/tmp
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 set hlsearch
