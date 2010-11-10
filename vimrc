@@ -21,6 +21,13 @@ filetype indent on
 highlight OverLength guibg=#592929
 match OverLength /\%81v.\+/
 
+" folding
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
+
+
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 nnoremap ' `
